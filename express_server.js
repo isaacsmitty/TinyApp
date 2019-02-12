@@ -26,6 +26,11 @@ app.get('/urls', (request, response) => {
   response.render('urls_index', {urls: urlDB});
 });
 
+app.get('/urls/:id', (request, response) => {
+  response.render('urls_show', {shortUrl: request.params.id,
+                                longUrl: urlDB[request.params.id]});
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 
