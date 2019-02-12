@@ -22,8 +22,8 @@ app.get('/hello', (request, response) => {
 });
 
 app.get('/urls', (request, response) => {
-  let templateVars = {urls: urlDB};
-  response.render('urls_index', templateVars);
+  // let templateVars = {urls: urlDB};
+  response.render('urls_index', {urls: urlDB});
 });
 
 app.listen(PORT, () => {
