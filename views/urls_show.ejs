@@ -10,13 +10,17 @@
 </head>
 <body style="font-size:20px; padding:50px;">
 
+  <header>
+    <% include ./partials/_header %>
+  </header>
+
+  <a href="#">Get Started</a>
+
+  <h2>TinyURL for</h2>
+
   <ul>
-
-    <a href="#">
-
-
-      <li> <%= shortUrl %> => <%= longUrl %> </li>
-   </ul>
+      <li> <h4><%= longUrl %> =></h4> <%= shortUrl %> </li>
+  </ul>
 
 </body>
 <!DOCTYPE html>
