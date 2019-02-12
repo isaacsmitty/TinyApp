@@ -8,16 +8,15 @@ const PORT = 8080;
 
 app.set('view engine', 'ejs');
 
+function generateRandomString() {
+  let string = Math.random().toString(36).substring(7);
+  return(string);
+}
 var urlDB = {
   'b2xVn2': 'http://www.lighthouselabs.ca',
   '9sm5xK': 'http://www.google.com'
 };
 
-function generateRandomString() {
-  let string = Math.random().toString(36).substring(7);
-  console.log(string);
-}
-generateRandomString()
 
 app.get('/', (request, result) => {
   result.send('Hello!');
@@ -36,8 +35,11 @@ app.get("/urls/new", (request, response) => {
 });
 
 app.post("/urls", (request, response) => {
-  console.log(request.body);  // Log the POST request body to the console
-  response.send("Ok");         // Respond with 'Ok' (we will replace this)
+  urlDB[generateRandomString()] = request.body.longURL;
+  // console.log(request.body);  // Log the POST request body to the console
+  // response.send("Ok");
+           // Respond with 'Ok' (we will replace this)
+  //console.log(string);
 });
 
 app.get('/urls', (request, response) => {
