@@ -15,18 +15,22 @@
 
 
 
-<a href="http://127.0.0.1:8080/urls/new">Make a Shorty!</a>
+<h4><a href="http://127.0.0.1:8080/urls/new">Make a Shorty!</a></h4>
 
 
   <h2>My URLs</h2>
 
+<table>
     <% for (var short in urls) {%>
-
-       <h5><%= short %> ===> <%= urls[short] %> <a href="/urls/<%= short %>"> Edit </a> </h5>
-
-        <form method="POST" action="/urls/<%= short %>/delete"><button type="delete" class="btn btn-primary">!!!</button></form>
-
+  <tr>
+    <td>  <h5> <a href="../u/<%= short %>" ><%= short %></a> ===> <%= urls[short] %>  </h5> </td>
+    <td> &emsp; </td>
+    <td> <a href="/urls/<%= short %>"> Edit </a> </h5> </td>
+    <td> &emsp; </td>
+    <td>  <form method="POST" action="/urls/<%= short %>/delete"><button type="delete" class="btn btn-primary">Delete</button></form> </td>
    <%}%>
+  </tr>
+</table>
 
 </body>
 <!DOCTYPE html>
