@@ -19,11 +19,11 @@
   <h2>TinyURL for</h2>
 -->
 
-    <h4>ShortURL: <%= shortURL %> </h4>
+    <h4>ShortURL: <strong><%= shortURL %> </h4></strong>
 
     <form class="form-inline" action="/urls/<%= shortURL %>" method="POST">
       <div class="form-group mb-2">
-        <label for="longURL">Enter a URL:</label>
+  <!--      <label for="longURL">Enter a URL:</label>  -->
         <input class="form-control" type="text" name="longURL" placeholder="<%=longURL%>" style="width: 300px; margin: 1em">
         <button type="submit" class="btn btn-primary">Update</button>
 

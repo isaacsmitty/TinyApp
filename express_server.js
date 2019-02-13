@@ -28,12 +28,13 @@ app.get('/hello', (request, response) => {
 
 app.get("/urls/new", (request, response) => {
   response.render("urls_new");
+
 });
 
 app.post("/urls", (request, response) => {
   let tiny = random();
   urlDB[tiny] = request.body.longURL;
-  response.redirect('http://127.0.0.1:8080/urls/' + tiny, 302);
+  response.redirect('http://127.0.0.1:8080/urls/');
 });
 
 app.get('/urls', (request, response) => {

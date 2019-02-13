@@ -17,7 +17,7 @@
 
     <% for (var short in urls) {%>
 
-       <h5><%= short %> ===> <%= urls[short] %></h5>
+       <h5><%= short %> ===> <%= urls[short] %> <a href="/urls/<%= short %>"> Edit </a> </h5>
 
         <form method="POST" action="/urls/<%= short %>/delete"><button type="delete" class="btn btn-primary">Delete</button></form>
 
