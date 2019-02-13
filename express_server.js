@@ -9,7 +9,9 @@ app.set('view engine', 'ejs');
 
 var urlDB = {
   'b2xVn2': 'http://www.lighthouselabs.ca',
-  '9sm5xK': 'http://www.google.com'
+  '9sm5xK': 'http://www.google.com',
+  'p98nb5': 'http://www.downtowndecks.com',
+  '23cb6v': 'http://helm.life'
 };
 
 
