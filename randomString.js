@@ -1,5 +1,6 @@
-function generateRandomString() {
-  let string = Math.random().toString(36).substring(7);
-  console.log(string);
+module.exports =
+  function generateRandomString() {
+    let string = Math.random().toString(36).substr(2, 6);
+    return(string);
 }
-generateRandomString()
+// generateRandomString()
