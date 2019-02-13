@@ -6,7 +6,9 @@
 <% if(username){ %>
 
    <h4>Logged in as <%=username%></h4>
-
+  <form class="form-inline" action="/logout" method="POST">
+            <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
  <% } else{ %>
 
    <h4>

@@ -36,6 +36,12 @@ app.post('/login', (request, response) => {
 
 });
 
+app.post('/logout', (request, response) => {
+  response.clearCookie('username');
+  response.redirect('/urls',);
+
+});
+
 app.get("/urls/new", (request, response) => {
   response.render("urls_new", {username: request.cookies["username"]});
 
