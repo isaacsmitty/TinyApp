@@ -14,9 +14,8 @@ var urlDB = {
   '23cb6v': 'http://helm.life'
 };
 
-
-app.get('/', (request, result) => {
-  result.send('Hello!');
+app.get('/', (request, response) => {
+  response.send('Hello!');
 });
 
 app.get('/urls.json', (request, response) => {
@@ -37,6 +36,11 @@ app.post("/urls", (request, response) => {
   response.redirect('http://127.0.0.1:8080/urls/' + tiny, 302);
 });
 
+app.get('/urls', (request, response) => {
+  // let templateVars = {urls: urlDB};
+  response.render('urls_index', {urls: urlDB});
+});
+
 app.get('/u/:shortURL', (request, response) => {
   let longURL = urlDB[request.params.shortURL];
   if (longURL.slice(0, 7) === 'http://') {
@@ -46,10 +50,12 @@ app.get('/u/:shortURL', (request, response) => {
   }
 });
 
-app.get('/urls', (request, response) => {
-  // let templateVars = {urls: urlDB};
-  response.render('urls_index', {urls: urlDB});
+app.post('/urls/:shortURL/delete', (request, response) => {
+  delete urlDB[request.params.shortURL];
+  response.redirect('/urls');
 });
+
+
 
 app.get('/urls/:id', (request, response) => {
   response.render('urls_show', {shortURL: request.params.id,

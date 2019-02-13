@@ -15,9 +15,12 @@
 <a href="#">Get Started</a>
   <h2>My URLs</h2>
 
-
     <% for (var short in urls) {%>
-       <h5><%= urls[short] %></h5> <h4> ===> <%= short %></h4>
+
+       <h5><%= short %> ===> <%= urls[short] %></h5>
+
+        <form method="POST" action="/urls/<%= short %>/delete"><button type="delete" class="btn btn-primary">Delete</button></form>
+
    <%}%>
 
 </body>
