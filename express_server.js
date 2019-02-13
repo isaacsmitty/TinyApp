@@ -55,7 +55,10 @@ app.post('/urls/:shortURL/delete', (request, response) => {
   response.redirect('/urls');
 });
 
-
+app.post('/urls/:shortURL', (request, response) => {
+  urlDB[request.params.shortURL] = request.body.longURL;
+  response.redirect('/urls');
+});
 
 app.get('/urls/:id', (request, response) => {
   response.render('urls_show', {shortURL: request.params.id,
