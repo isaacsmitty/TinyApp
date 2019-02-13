@@ -12,14 +12,19 @@
 <header>
     <% include ./partials/_header %>
 </header>
-<a href="#">Get Started</a>
+
+  <h3>Logged in as : <%=username%></h3>
+
+<a href="http://127.0.0.1:8080/urls/new">Make a Shorty!</a>
+
+
   <h2>My URLs</h2>
 
     <% for (var short in urls) {%>
 
        <h5><%= short %> ===> <%= urls[short] %> <a href="/urls/<%= short %>"> Edit </a> </h5>
 
-        <form method="POST" action="/urls/<%= short %>/delete"><button type="delete" class="btn btn-primary">Delete</button></form>
+        <form method="POST" action="/urls/<%= short %>/delete"><button type="delete" class="btn btn-primary">!!!</button></form>
 
    <%}%>
 

@@ -16,6 +16,8 @@ var urlDB = {
   '23cb6v': 'http://helm.life'
 };
 
+
+
 app.get('/', (request, response) => {
   response.send('Hello!');
 });
@@ -29,14 +31,13 @@ app.get('/hello', (request, response) => {
 });
 
 app.post('/login', (request, response) => {
-  response.cookie(request.body.username, 'username');
-  //console.log(response.cookie());
-  response.redirect('/urls');
+  response.cookie('username', request.body.username);
+  response.redirect('/urls',);
 
 });
 
 app.get("/urls/new", (request, response) => {
-  response.render("urls_new");
+  response.render("urls_new", {username: request.cookies["username"]});
 
 });
 
@@ -47,8 +48,7 @@ app.post("/urls", (request, response) => {
 });
 
 app.get('/urls', (request, response) => {
-  // let templateVars = {urls: urlDB};
-  response.render('urls_index', {urls: urlDB});
+  response.render('urls_index', {urls: urlDB, username: request.cookies["username"]});
 });
 
 app.get('/u/:shortURL', (request, response) => {
@@ -62,17 +62,17 @@ app.get('/u/:shortURL', (request, response) => {
 
 app.post('/urls/:shortURL/delete', (request, response) => {
   delete urlDB[request.params.shortURL];
-  response.redirect('/urls');
+  response.redirect('/urls',);
 });
 
 app.post('/urls/:shortURL', (request, response) => {
   urlDB[request.params.shortURL] = request.body.longURL;
-  response.redirect('/urls');
+  response.redirect('/urls',);
 });
 
 app.get('/urls/:id', (request, response) => {
   response.render('urls_show', {shortURL: request.params.id,
-                                longURL: urlDB[request.params.id]});
+                                longURL: urlDB[request.params.id], username: request.cookies["username"]});
 });
 
 app.listen(PORT, () => {
