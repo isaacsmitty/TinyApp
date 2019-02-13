@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 const random = require('./randomString.js');
 const PORT = 8080;
 
@@ -24,6 +26,13 @@ app.get('/urls.json', (request, response) => {
 
 app.get('/hello', (request, response) => {
   response.send('<html><body>Hello <b>World</b></body></html>')
+});
+
+app.post('/login', (request, response) => {
+  response.cookie(request.body.username, 'username');
+  //console.log(response.cookie());
+  response.redirect('/urls');
+
 });
 
 app.get("/urls/new", (request, response) => {
