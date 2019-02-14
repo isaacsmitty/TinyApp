@@ -3,10 +3,11 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 const cookieParser = require('cookie-parser');
-app.use(cookieParser());
+app.use(cookieParser('long rambling statement'));
 const random = require('./randomString.js');
 
-const PORT = 8080;
+const PORT = 8080
+;
 
 app.set('view engine', 'ejs');
 
@@ -30,6 +31,15 @@ const users = {
   }
 }
 
+function checkDBForEmail(email) {
+  for (var id in users) {
+    if (users[id].email === email) {
+      return true;
+    }
+  }
+    return false;
+};
+
 app.get('/', (request, response) => {
   response.send('Hello!');
 });
@@ -48,16 +58,24 @@ app.get('/register', (request, response) => {
 });
 
 app.post('/register', (request, response) => {
-  let id = random();
-  users[id] = {'id': id, email: request.body.email ,password: request.body.password};
-  console.log(users);
-  response.redirect('/urls');
+  if (request.body.email === '' || request.body.password === '') {
+    response.send ('400 : invalid email or password');
+  } else if (checkDBForEmail(request.body.email)) {
+
+    response.send ('400 : Email is already used.');
+
+  } else {
+    let id = random();
+    users[id] = {'id': id, email: request.body.email ,password: request.body.password};
+    response.cookie('user_id', id);
+    console.log(users);
+    response.redirect('/urls');
+  }
 });
 
 app.post('/login', (request, response) => {
   response.cookie('username', request.body.username);
   response.redirect('/urls',);
-
 });
 
 app.post('/logout', (request, response) => {
