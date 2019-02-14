@@ -3,14 +3,22 @@
   <h3> The World Best URL Shortening App! </h3>
 </header>
 
-<% if(username){ %>
+<a href="http://127.0.0.1:8080/register"><h4>Register Here</h4></a>
 
-   <h4>Logged in as <%=username%></h4>
+<a href="http://127.0.0.1:8080/login"><h4>Login Here</h4></a>
+
+
+<% if(user){ %>
+
+   <h4>Logged in as <%=user.email%></h4>
   <form class="form-inline" action="/logout" method="POST">
             <button type="submit" class="btn btn-primary">Logout</button>
         </form>
- <% } else{ %>
+ <% } else { %>
 
+
+<% } %>
+<!--
    <h4>
     <form class="form-inline" action="/login" method="POST">
           <div class="form-group mb-2">
@@ -20,4 +28,5 @@
           </div>
         </form>
        </h4>
-<% } %>
+-->
+

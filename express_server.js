@@ -53,8 +53,8 @@ app.get('/hello', (request, response) => {
 });
 
 app.get('/register', (request, response) => {
-  let templateVars = {username: request.cookies["username"]}
-  response.render("registration", templateVars);
+  let templateVars = {user: users[request.cookies["user_id"]]}
+  response.render('registration', templateVars);
 });
 
 app.post('/register', (request, response) => {
@@ -69,23 +69,29 @@ app.post('/register', (request, response) => {
     users[id] = {'id': id, email: request.body.email ,password: request.body.password};
     response.cookie('user_id', id);
     console.log(users);
+    console.log(request.cookies['user_id']);
     response.redirect('/urls');
   }
 });
 
+app.get('/login', (request, response) => {
+  let templateVars = {user: users[request.cookies["user_id"]]}
+  response.render('login', templateVars);
+});
+
 app.post('/login', (request, response) => {
-  response.cookie('username', request.body.username);
+  response.cookie('user_id', request.body.username);
   response.redirect('/urls',);
 });
 
 app.post('/logout', (request, response) => {
-  response.clearCookie('username');
+  response.clearCookie('user_id');
   response.redirect('/urls',);
 
 });
 
 app.get("/urls/new", (request, response) => {
-  let templateVars = {urls: urlDB, username: request.cookies["username"]};
+  let templateVars = {urls: urlDB, user: users[request.cookies["user_id"]]};
   response.render("urls_new", templateVars);
 
 });
@@ -97,7 +103,7 @@ app.post("/urls", (request, response) => {
 });
 
 app.get('/urls', (request, response) => {
-  let templateVars = {urls: urlDB, username: request.cookies["username"]};
+  let templateVars = {urls: urlDB, user: users[request.cookies["user_id"]]};
   response.render('urls_index', templateVars);
 });
 
@@ -123,7 +129,7 @@ app.post('/urls/:shortURL', (request, response) => {
 app.get('/urls/:id', (request, response) => {
   let templateVars = {shortURL: request.params.id,
    longURL: urlDB[request.params.id],
-   username: request.cookies["username"]}
+   user: users[request.cookies["user_id"]]}
   response.render('urls_show', templateVars);
 });
 
