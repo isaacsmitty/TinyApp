@@ -5,6 +5,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 const cookieParser = require('cookie-parser');
 app.use(cookieParser('long rambling statement'));
 const random = require('./randomString.js');
+//const checkDBForEmail = require('./checkDBForEmail.js')
 
 const PORT = 8080
 ;
@@ -28,13 +29,17 @@ const users = {
     id: "user2RandomID",
     email: "user2@example.com",
     password: "dishwasher-funk"
-  }
+  },
+  gu6g6f:
+   { id: 'gu6g6f',
+     email: 'isaac.smitty@gmail.com',
+     password: '12345' }
 }
 
 function checkDBForEmail(email) {
   for (var id in users) {
     if (users[id].email === email) {
-      return true;
+      return users[id];
     }
   }
     return false;
@@ -61,15 +66,13 @@ app.post('/register', (request, response) => {
   if (request.body.email === '' || request.body.password === '') {
     response.send ('400 : invalid email or password');
   } else if (checkDBForEmail(request.body.email)) {
-
     response.send ('400 : Email is already used.');
-
   } else {
     let id = random();
     users[id] = {'id': id, email: request.body.email ,password: request.body.password};
     response.cookie('user_id', id);
-    console.log(users);
-    console.log(request.cookies['user_id']);
+    //console.log(users);
+    //console.log(response.cookies['user_id']);
     response.redirect('/urls');
   }
 });
@@ -80,8 +83,16 @@ app.get('/login', (request, response) => {
 });
 
 app.post('/login', (request, response) => {
-  response.cookie('user_id', request.body.username);
-  response.redirect('/urls',);
+  //console.log(request.body);
+  const objectID = checkDBForEmail(request.body.email)
+  if (!objectID) {
+    response.send ('403 : Invalid Email');
+  } else if ((objectID.password !== request.body.password)) {
+  response.send ('403 : Invalid Password')
+  } else {
+    response.cookie('user_id', objectID.id);
+    response.redirect('/urls');
+  }
 });
 
 app.post('/logout', (request, response) => {
