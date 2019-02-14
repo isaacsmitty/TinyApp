@@ -5,18 +5,30 @@ app.use(bodyParser.urlencoded({extended: true}));
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 const random = require('./randomString.js');
+
 const PORT = 8080;
 
 app.set('view engine', 'ejs');
 
-var urlDB = {
+const urlDB = {
   'b2xVn2': 'http://www.lighthouselabs.ca',
   '9sm5xK': 'http://www.google.com',
   'p98nb5': 'http://www.downtowndecks.com',
   '23cb6v': 'http://helm.life'
 };
 
-
+const users = {
+  "userRandomID": {
+    id: "userRandomID",
+    email: "user@example.com",
+    password: "purple-monkey-dinosaur"
+  },
+ "user2RandomID": {
+    id: "user2RandomID",
+    email: "user2@example.com",
+    password: "dishwasher-funk"
+  }
+}
 
 app.get('/', (request, response) => {
   response.send('Hello!');
@@ -28,6 +40,18 @@ app.get('/urls.json', (request, response) => {
 
 app.get('/hello', (request, response) => {
   response.send('<html><body>Hello <b>World</b></body></html>')
+});
+
+app.get('/register', (request, response) => {
+  let templateVars = {username: request.cookies["username"]}
+  response.render("registration", templateVars);
+});
+
+app.post('/register', (request, response) => {
+  let id = random();
+  users[id] = {'id': id, email: request.body.email ,password: request.body.password};
+  console.log(users);
+  response.redirect('/urls');
 });
 
 app.post('/login', (request, response) => {
@@ -43,7 +67,8 @@ app.post('/logout', (request, response) => {
 });
 
 app.get("/urls/new", (request, response) => {
-  response.render("urls_new", {username: request.cookies["username"]});
+  let templateVars = {urls: urlDB, username: request.cookies["username"]};
+  response.render("urls_new", templateVars);
 
 });
 
@@ -54,7 +79,8 @@ app.post("/urls", (request, response) => {
 });
 
 app.get('/urls', (request, response) => {
-  response.render('urls_index', {urls: urlDB, username: request.cookies["username"]});
+  let templateVars = {urls: urlDB, username: request.cookies["username"]};
+  response.render('urls_index', templateVars);
 });
 
 app.get('/u/:shortURL', (request, response) => {
@@ -77,8 +103,10 @@ app.post('/urls/:shortURL', (request, response) => {
 });
 
 app.get('/urls/:id', (request, response) => {
-  response.render('urls_show', {shortURL: request.params.id,
-                                longURL: urlDB[request.params.id], username: request.cookies["username"]});
+  let templateVars = {shortURL: request.params.id,
+   longURL: urlDB[request.params.id],
+   username: request.cookies["username"]}
+  response.render('urls_show', templateVars);
 });
 
 app.listen(PORT, () => {
