@@ -1,38 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>TinyApp</title>
-</head>
-<body style="font-size:20px; padding:50px;">
-<header>
-    <% include ./partials/_header %>
-</header>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+      <title>TinyApp</title>
+    </head>
 
+    <header>
+        <% include ./partials/_header %>
+    </header>
 
+    <body style="font-size:20px; padding:50px;">
 
-<h4><a href="http://127.0.0.1:8080/urls/new">Make a Shorty!</a></h4>
+      <p>
+        <h5><a href="http://127.0.0.1:8080/urls/new">Create TinyURL</a></h5>
+      </p>
+        <h4>My URLs</h4>
+      <p>
+        <table>
+            <% for (var short in urls) {%>
+          <tr>
+            <td>  <h5> <a href="../u/<%= short %>" ><%= short %></a> ===> <%= urls[short] %>  </h5> </td>
+            <td> &emsp; </td>
+            <td> <a href="/urls/<%= short %>"> Edit </a> </h5> </td>
+            <td> &emsp; </td>
+            <td>  <form method="POST" action="/urls/<%= short %>/delete"><button type="delete" class="btn btn-primary">Delete</button></form> </td>
+           <%}%>
+          </tr>
+        </table>
+      </p>
 
-
-  <h2>My URLs</h2>
-
-<table>
-    <% for (var short in urls) {%>
-  <tr>
-    <td>  <h5> <a href="../u/<%= short %>" ><%= short %></a> ===> <%= urls[short] %>  </h5> </td>
-    <td> &emsp; </td>
-    <td> <a href="/urls/<%= short %>"> Edit </a> </h5> </td>
-    <td> &emsp; </td>
-    <td>  <form method="POST" action="/urls/<%= short %>/delete"><button type="delete" class="btn btn-primary">Delete</button></form> </td>
-   <%}%>
-  </tr>
-</table>
-
-</body>
-<!DOCTYPE html>
+    </body>
+  <!DOCTYPE html>
 </html>
 

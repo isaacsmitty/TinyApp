@@ -1,23 +1,21 @@
 <header>
-  <h1> TinyApp</h1>
+  <h1> <strong> TinyApp </strong> </h1>
   <h3> The World Best URL Shortening App! </h3>
+
+  <% if(user){ %>
+
+    <h4>Logged in as <%=user.email%></h4>
+
+    <form class="form-inline" action="/logout" method="POST">
+              <button type="submit" class="btn btn-primary">Logout</button>
+          </form>
+
+  <% } else { %>
+
+    <h5> <a href="/login"> Login </a> || <a href="/register"> Register </a> </h5>
+
+  <% } %>
 </header>
-
-<a href="http://127.0.0.1:8080/register"><h4>Register Here</h4></a>
-
-<a href="http://127.0.0.1:8080/login"><h4>Login Here</h4></a>
-
-
-<% if(user){ %>
-
-   <h4>Logged in as <%=user.email%></h4>
-  <form class="form-inline" action="/logout" method="POST">
-            <button type="submit" class="btn btn-primary">Logout</button>
-        </form>
- <% } else { %>
-
-
-<% } %>
 <!--
    <h4>
     <form class="form-inline" action="/login" method="POST">

@@ -5,7 +5,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 const cookieParser = require('cookie-parser');
 app.use(cookieParser('long rambling statement'));
 const random = require('./randomString.js');
-//const checkDBForEmail = require('./checkDBForEmail.js')
+const bcrypt = require('bcrypt');
 
 const PORT = 8080
 ;
@@ -93,9 +93,11 @@ app.post('/register', (request, response) => {
   } else if (checkDBForEmail(request.body.email)) {
     response.send ('400 : Email is already used.');
   } else {
+    let hash = bcrypt.hashSync(request.body.password, 10);
+    //console.log(hash);
     let id = random();
-    console.log(id);
-    users[id] = {'id': id, email: request.body.email ,password: request.body.password};
+    users[id] = {'id': id, email: request.body.email, password: hash};
+    console.log(users[id].password);
     response.cookie('user_id', id);
     response.redirect('/urls');
   }
@@ -107,15 +109,18 @@ app.get('/login', (request, response) => {
 });
 
 app.post('/login', (request, response) => {
-  //console.log(request.body);
+
   const objectID = checkDBForEmail(request.body.email)
+  // let unhash = bcrypt.compareSync(request.body.password, objectID.password)
+  // console.log(unhash);
+
   if (!objectID) {
     response.send ('403 : Invalid Email');
-  } else if ((objectID.password !== request.body.password)) {
-  response.send ('403 : Invalid Password')
-  } else {
+  } else if (bcrypt.compareSync(request.body.password, objectID.password)) {
     response.cookie('user_id', objectID.id);
     response.redirect('/urls');
+  } else {
+    response.send ('403 : Invalid Password')
   }
 });
 
