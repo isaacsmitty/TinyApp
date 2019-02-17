@@ -166,12 +166,12 @@ app.get('/u/:shortURL', (request, response) => {
 
 app.post('/urls/:shortURL', (request, response) => {
   urlDB[request.params.shortURL].longURL = request.body.longURL;
-  response.redirect('/urls',);
+  response.redirect('/urls');
 });
 
 app.post('/urls/:shortURL/delete', (request, response) => {
   delete urlDB[request.params.shortURL];
-  response.redirect('/urls',);
+  response.redirect('/urls');
 });
 
 app.get('/urls/:id', (request, response) => {
