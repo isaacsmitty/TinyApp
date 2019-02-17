@@ -120,7 +120,7 @@ app.get('/login', (request, response) => {
 app.post('/login', (request, response) => {
   const objectID = checkDBForEmail(request.body.email)
   if (!objectID) {
-    response.send ('403 : Invalid Email');
+    response.status(403).send('<html><body><h1><b>Invalid Email. Please try again.</b></1></body></html>');
   } else if (bcrypt.compareSync(request.body.password, objectID.password)) {
     request.session.user_id = objectID.id;
     response.redirect('/urls');

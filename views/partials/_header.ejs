@@ -1,12 +1,12 @@
 <header>
   <h1> <strong> TinyApp </strong> </h1>
-  <h3> The World Best URL Shortening App! </h3>
+  <h3 style="margin-top: 20px; margin-bottom: 20px"> The World Best URL Shortening App! </h3>
 
   <% if(user){ %>
 
-    <h4>Logged in as <%=user.email%></h4>
+    <h4 style="margin-top: 20px; margin-bottom: 20px">Logged in as <%=user.email%></h4>
 
-    <form class="form-inline" action="/logout" method="POST">
+    <form style="margin-top: 30px; margin-bottom: 40px"class="form-inline" action="/logout" method="POST">
               <button type="submit" class="btn btn-primary">Logout</button>
           </form>
 
