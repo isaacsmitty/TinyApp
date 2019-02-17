@@ -1,3 +1,5 @@
+//TinyApp Project
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -21,15 +23,6 @@ const urlDB = {
   '23cb6v': {longURL: 'http://helm.life', userID: 'f74b36'}
 };
 
-function urlsForUser(id) {
-  let accessableURLs = {};
-  for (let shortURL in urlDB) {
-    if (urlDB[shortURL].userID === id) {
-      accessableURLs[shortURL] = urlDB[shortURL].longURL;
-    }
-  }
-  return accessableURLs;
-}
 const users = {
   "userRandomID": {
     id: "userRandomID",
@@ -52,7 +45,7 @@ const users = {
      password: '$2b$10$xkteF6yAD9staQbm/pj6Pe3SJCJ.pOLKQ3DBCNrXAkdy/JV7pAQOm'
    }
 }
-
+//checks for existing email in DB
 function checkDBForEmail(email) {
   for (var id in users) {
     if (users[id].email === email) {
@@ -61,7 +54,17 @@ function checkDBForEmail(email) {
   }
     return false;
 };
-
+//checks for existing user id in DB
+function urlsForUser(id) {
+  let accessableURLs = {};
+  for (let shortURL in urlDB) {
+    if (urlDB[shortURL].userID === id) {
+      accessableURLs[shortURL] = urlDB[shortURL].longURL;
+    }
+  }
+  return accessableURLs;
+}
+//checks for cookie match on login
 function checkDBForLogin(cookie) {
   for (var id in users) {
     if (users[id].id === cookie) {
@@ -92,7 +95,7 @@ app.get('/register', (request, response) => {
   response.render('registration', templateVars);
   }
 });
-
+//user is directly correctly on registration
 app.post('/register', (request, response) => {
   if (request.body.email === '' || request.body.password === '') {
     response.status(400).send('<html><body><h1><b>Invalid Email or Password. Please try again.</b></1></body></html>');
@@ -100,7 +103,6 @@ app.post('/register', (request, response) => {
     response.status(400).send('<html><body><h1><b>Email is already registered. Please try again.</b></1></body></html>');
   } else {
     let hash = bcrypt.hashSync(request.body.password, 10);
-    console.log(hash);
     let id = random();
     users[id] = {'id': id, email: request.body.email, password: hash};
     request.session.user_id = id;
@@ -154,9 +156,9 @@ app.get("/urls/new", (request, response) => {
     response.render('login', templateVars);
   }
 });
-
 app.get('/u/:shortURL', (request, response) => {
   let longURL = urlDB[request.params.shortURL].longURL;
+//slice added to fix looping redirect when 'http' was missing from URLs
   if (longURL.slice(0, 7) === 'http://') {
     response.redirect(longURL);
   } else {
