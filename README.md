@@ -15,15 +15,15 @@ At end of session all cookies are deleted.  At **TinyApp** we respect our user's
 
 ## Final Project
 
-####Get started by registering or logging in on the appropriate page.
+#### Get started by registering or logging in on the appropriate page.
 
 !["Register page"](https://github.com/isaacsmitty/TinyApp/blob/master/docs/Screenshot%202019-02-16%20at%2011.03.42%20PM.png)
 
-####Once logged in; you can view your URLs on the main index page.
+#### Once logged in; you can view your URLs on the main index page.
 
 !["Main URLs page"](https://github.com/isaacsmitty/TinyApp/blob/master/docs/Screenshot%202019-02-16%20at%2011.02.01%20PM.png)
 
-####Create new TinyURLs and edit as you please.
+#### Create new TinyURLs and edit as you please.
 
 !["Create TinyURL page"](https://github.com/isaacsmitty/TinyApp/blob/master/docs/Screenshot%202019-02-16%20at%2011.04.33%20PM.png)
 
