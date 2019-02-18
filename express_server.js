@@ -161,6 +161,8 @@ app.get('/u/:shortURL', (request, response) => {
 //slice added to fix looping redirect when 'http' was missing from URLs
   if (longURL.slice(0, 7) === 'http://') {
     response.redirect(longURL);
+  } else if (longURL.slice(0, 8) === 'https://') {
+    response.redirect(longURL);
   } else {
     response.redirect('http://' + longURL);
   }

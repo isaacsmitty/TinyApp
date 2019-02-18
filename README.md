@@ -41,6 +41,7 @@ At end of session all cookies are deleted.  At **TinyApp** we respect our user's
 
 * Install all dependancies using the *'npm install'* command.
 * Run the dev web server using the *'node express_server.js'* command.
+* To access the app, navigate to localhost:8080.
 
 
 
